@@ -6,20 +6,21 @@ app = Flask(__name__)
 app.secret_key = os.urandom(16)
 print(os.urandom(16))
 
-conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='2303023320', password='mypassword',
-                       database='2303023320_vef2_v7')
+conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='2303023320', password='mypassword', database='2303023320_vef2_v7')
 
 
 @app.route('/')
 def index():
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM users")
-    x = cur.fetchall()
+    '''
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM users")
+        x = cur.fetchall()
 
-    for i in x:
-        print(i[2])
+        for i in x:
+            print(i[2])
+    '''
+
     return render_template("index.html")
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,8 +28,7 @@ def login():
         user = request.form.get('user_name')
         psw = request.form.get('user_password')
 
-        conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user=2303023320, password='mypassword',
-                               database='2303023320_vef2_v7')
+        conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='2303023320', password='mypassword', database='2303023320_vef2_v7')
         cur = conn.cursor()
         cur.execute("SELECT count(*) FROM 2303023320_vef2_v7.users where user_name=%s and user_password=%s",(user, psw))
         result = cur.fetchone()
@@ -68,13 +68,12 @@ def nyskra():
 
 
 @app.route('/users')
-def users():
+def users(): 
     cur = conn.cursor()
     resultValue = cur.execute("SELECT user_name FROM 2303023320_vef2_v7.users")
     if resultValue > 0:
         userDetails = cur.fetchall()
         return render_template('users.html', userDetails=userDetails)
-
 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
