@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Skráðir notendur{% endblock %}
+
+{% block content %}
+<h3>{% self.title() %}</h3>
+
+
+<table>
+    <tr>
+        <th>Nafn</th>
+    </tr>
+    <tr>
+        {% for user in userDetails %}
+    </tr>
+    <tr>
+        <td> {{user[0]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<h4>Þetta er opin vafsíða</h4>
+{% endblock %}
